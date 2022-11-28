@@ -3,7 +3,9 @@ import{Button, Grid, Typography, TextField,
     FormHelperText, FormControl, FormControlLabel, 
     RadioGroup, Radio} from "@mui/material"
 import {Form, Link} from "react-router-dom"
-export default class CreateRoomPage extends Component{
+import {withRouter} from './withRouter';
+
+class CreateRoomPage extends Component{
     defaultVotes = 2;
     constructor(props) {
         super(props);
@@ -24,7 +26,7 @@ export default class CreateRoomPage extends Component{
 
     handleGuestPauseChange(e){
         this.setState({
-            guestCanPause: e.target.value === "true" ? true : false,
+            guestCanPause: e.target.value === "true" ? true : false
         });
     }
 
@@ -40,7 +42,7 @@ export default class CreateRoomPage extends Component{
 
         fetch('/api/create-room', requestOptions).then((response) =>
             response.json()
-        ).then((data) => console.log(data));
+        ).then((data) => this.props.navigate('/room/' + data.code));
 
     }
 
@@ -112,3 +114,5 @@ export default class CreateRoomPage extends Component{
         );
     }
 }
+
+export default withRouter(CreateRoomPage);
