@@ -19,10 +19,10 @@ export default function Room() {
     });
        
 
-    return <div>
+    return(<div>
             <h3>{roomCode}</h3>
             <p>Votes: {votesToSkip}</p>
             <p>Guest Can Pause: {String(guestCanPause)}</p>
             <p>Host: {String(isHost)}</p>
-        </div>
+        </div>)
 }
