@@ -7,7 +7,6 @@ import {
     Routes,
     Route,
     Link,
-    Redirect,
     Navigate,
   } from "react-router-dom";
   import Room from "./Room";
@@ -18,7 +17,8 @@ import {
       super(props);
       this.state = {
         roomCode: null,
-      }
+      };
+      this.clearRoomCode = this.clearRoomCode.bind(this);
     }
 
     async componentDidMount(){
@@ -30,6 +30,8 @@ import {
         });
       });
     }
+
+
 
     renderHomePage() {
       if(this.state.roomCode){
@@ -61,6 +63,12 @@ import {
       }
       
     }
+
+    clearRoomCode(){
+      this.setState({
+        roomCode: null
+      });
+    }
   
     render() {
       return (
@@ -69,7 +77,8 @@ import {
             <Route exact path="/" element={this.renderHomePage()}/>
             <Route path="/join" element={<RoomJoinPage/>} />
             <Route path="/create" element={<CreateRoomPage/>} />
-            <Route path="/room/:roomCode" element={<Room/>} />
+            <Route path="/room/:roomCode" 
+                   element={<Room leaveRoomCallback={this.clearRoomCode}/>}/>
           </Routes>
         </BrowserRouter>
       );
